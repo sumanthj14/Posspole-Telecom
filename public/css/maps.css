@@ -1,72 +1,128 @@
+/* General body styling */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* Light background for better contrast */
+    color: #333; /* Darker text color for readability */
 }
 
+/* Page title styling */
 h1 {
     text-align: center;
     margin: 20px 0;
+    color: #2d2d2d; /* Slightly darker for better readability */
+    font-size: 1.8em; /* Adjust font size */
 }
 
+/* Search bar container styling */
 .search-bar {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 10px;
     margin: 20px 0;
+    flex-wrap: wrap; /* Ensure inputs wrap on smaller screens */
+    padding: 10px;
 }
 
+/* Input fields styling */
 .search-bar input {
-    padding: 8px;
+    padding: 10px;
     font-size: 1em;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 220px; /* Consistent input field width */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
+/* Input field focus effect */
+.search-bar input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    outline: none;
+}
+
+/* Search button styling */
 .search-bar button {
-    padding: 8px 15px;
+    padding: 10px 20px;
     font-size: 1em;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+/* Button hover effect */
 .search-bar button:hover {
     background-color: #45a049;
+    transform: scale(1.05); /* Slightly enlarge button on hover */
 }
 
+/* Button focus effect */
+.search-bar button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
 
+/* Map container styling */
 #map {
-    width: 80%; /* Adjust the width to 80% of the page */
-    height: 400px; /* Set the height to 400px */
-    margin: 0 auto; /* Center the map horizontally */
+    width: 90%; /* Adjust the width for responsiveness */
+    height: 500px; /* Height increased for better visibility */
+    margin: 20px auto; /* Center the map horizontally */
     border: 1px solid #ccc; /* Optional border for styling */
-    border-radius: 8px; /* Optional rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for better appearance */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: #eaeaea; /* Fallback background color */
 }
 
-
-/* Add Autocomplete Suggestions Styles Below */
+/* Autocomplete suggestions container */
 #autocomplete-results {
     list-style: none;
     padding: 0;
-    margin: 0 auto;
+    margin: 10px auto;
     background-color: white;
     border: 1px solid #ccc;
     max-height: 200px;
     overflow-y: auto;
-    width: 300px;
+    width: 320px; /* Increased width for better usability */
     z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Autocomplete suggestion items */
 #autocomplete-results li {
-    padding: 10px;
+    padding: 10px 15px; /* Increased padding for better spacing */
     cursor: pointer;
     font-size: 1em;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Last suggestion item without a border */
+#autocomplete-results li:last-child {
+    border-bottom: none;
+}
+
+/* Hover effect on suggestion items */
 #autocomplete-results li:hover {
-    background-color: #f0f0f0;
+    background-color: #f9f9f9;
+    color: #4CAF50;
+}
+
+/* Responsive design tweaks */
+@media (max-width: 768px) {
+    .search-bar input {
+        width: 180px; /* Adjust input field width on smaller screens */
+    }
+
+    #map {
+        width: 95%; /* Slightly increase map width for smaller screens */
+        height: 400px; /* Reduce map height for smaller screens */
+    }
+
+    #autocomplete-results {
+        width: 90%; /* Adjust suggestion width for smaller screens */
+    }
 }
