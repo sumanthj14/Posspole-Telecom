@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSSPOLE Telecom</title>
+    <!-- Link to External CSS -->
+    <link rel="stylesheet" href="css/maps.css">
+</head>
+<body>
+    <h1>POSSPOLE Telecom</h1>
+
+    <!-- Search Bar for Latitude and Longitude -->
+    <div class="search-bar">
+        <input type="text" id="latitude" placeholder="Enter Latitude">
+        <input type="text" id="longitude" placeholder="Enter Longitude">
+        <button onclick="searchByLatLon()">Search by Lat/Lon</button>
+    </div>
+
+    <!-- Search Bar for Place with Autocomplete -->
+    <div class="search-bar">
+        <input type="text" id="place" placeholder="Search by Place" oninput="debounce(fetchAutocomplete, 300)">
+        <button onclick="searchByPlace()">Search by Place</button>
+    </div>
+    <ul id="autocomplete-results"></ul>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- JavaScript Files -->
+    <script src="OlaMapsWebSDK/olamaps-web-sdk.umd.js"></script>
+    <script src="js/maps.js"></script>
+</body>
+</html>
