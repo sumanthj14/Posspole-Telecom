@@ -15,6 +15,35 @@ const map = olaMaps.init({
     zoom: 10,
 });
 
+// Ensure this function is declared at the top level of the file
+const searchByLatLon = () => {
+    const latInput = document.getElementById('latitude').value;
+    const lonInput = document.getElementById('longitude').value;
+
+    if (!latInput || !lonInput || isNaN(latInput) || isNaN(lonInput)) {
+        alert('Please enter valid Latitude and Longitude values.');
+        return;
+    }
+
+    const latitude = parseFloat(latInput);
+    const longitude = parseFloat(lonInput);
+
+    // Re-center the map
+    map.setCenter([longitude, latitude]);
+
+    // Add a marker at the specified coordinates
+    const marker = olaMaps
+        .addMarker({
+            offset: [0, -10],
+            anchor: 'bottom',
+            color: 'blue',
+        })
+        .setLngLat([longitude, latitude])
+        .addTo(map);
+
+    console.log(`Marker added at Latitude: ${latitude}, Longitude: ${longitude}`);
+};
+
 // Fetch autocomplete suggestions from the API
 const fetchAutocomplete = () => {
     const query = document.getElementById('place').value.trim();
