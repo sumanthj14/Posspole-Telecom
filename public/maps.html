@@ -24,6 +24,12 @@
     </div>
     <ul id="autocomplete-results"></ul>
 
+    <!-- File Upload Section -->
+    <div class="file-upload">
+        <button onclick="triggerFileUpload()">Upload CSV</button>
+        <input type="file" id="csvFileInput" accept=".csv" style="display: none;" onchange="handleFileUpload(event)">
+    </div>
+
     <!-- Map Container -->
     <div id="map"></div>
 
