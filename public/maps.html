@@ -30,6 +30,11 @@
         <input type="file" id="csvFileInput" accept=".csv" style="display: none;" onchange="handleFileUpload(event)">
     </div>
 
+    <!-- Fetch Current Location Section -->
+    <div id="controls" class="controls">
+        <button id="fetch-location-btn" onclick="fetchCurrentLocation()">Fetch Current Location</button>
+    </div>
+
     <!-- Map Container -->
     <div id="map"></div>
 

@@ -242,3 +242,26 @@ h1 {
 .dialog-content button:hover {
     background-color: #45a049;
 }
+
+#fetch-location-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px auto;
+    display: block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#fetch-location-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
