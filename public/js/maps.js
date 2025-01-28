@@ -177,3 +177,99 @@ const fetchCurrentLocation = () => {
         alert('Geolocation is not supported by this browser.');
     }
 };
+
+// Autocomplete Search Functionality
+const fetchAutocomplete = () => {
+    const query = document.getElementById('place').value.trim();
+    if (!query) return;
+
+    const url = `https://api.olamaps.io/places/v1/autocomplete?input=${encodeURIComponent(query)}&api_key=${OLA_MAPS_API_KEY}`;
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'X-Request-Id': REQUEST_ID,
+        },
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            const results = data.predictions || []; // Adjust based on the API response
+            displayAutocompleteResults(results);
+        })
+        .catch((error) => {
+            console.error('Error fetching autocomplete results:', error);
+        });
+};
+
+// Display autocomplete suggestions in the dropdown
+const displayAutocompleteResults = (results) => {
+    const autocompleteList = document.getElementById('autocomplete-results');
+    autocompleteList.innerHTML = ''; // Clear previous results
+
+    results.forEach((result) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = result.description; // Display the suggestion name
+        listItem.onclick = () => {
+            handleAutocompleteSelection(result.place_id); // Handle selection when clicked
+        };
+        autocompleteList.appendChild(listItem);
+    });
+};
+
+// Handle the selection of a place from autocomplete suggestions
+const handleAutocompleteSelection = (placeId) => {
+    const url = `https://api.olamaps.io/places/v1/details?place_id=${placeId}&api_key=${OLA_MAPS_API_KEY}`;
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'X-Request-Id': REQUEST_ID,
+        },
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            const place = data.result; // Extract place details
+            const coordinates = place.geometry?.location || [77.5946, 12.9716]; // Fallback to Bangalore
+            map.setCenter(coordinates); // Center map on selected place
+
+            // Add a marker for the selected place
+            olaMaps
+                .addMarker({
+                    offset: [0, -10],
+                    anchor: 'bottom',
+                    color: 'blue',
+                })
+                .setLngLat(coordinates)
+                .addTo(map);
+
+            console.log(`Selected Place: ${place.name}, Coordinates: ${coordinates}`);
+        })
+        .catch((error) => {
+            console.error('Error fetching place details:', error);
+        });
+
+    // Clear the autocomplete results
+    document.getElementById('autocomplete-results').innerHTML = '';
+};
+
+// Debounce function to limit API calls while typing
+const debounce = (func, delay) => {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+};
+
+// Attach debounced fetchAutocomplete to the input field
+document.getElementById('place').addEventListener('input', debounce(fetchAutocomplete, 300));
